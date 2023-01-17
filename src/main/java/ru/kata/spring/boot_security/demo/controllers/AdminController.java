@@ -22,7 +22,6 @@ public class AdminController {
     private final RoleRepository repository;
     private final PasswordEncoder encoder;
 
-    @Autowired
     public AdminController(UserService service, RoleRepository repository, RoleRepository repository1, PasswordEncoder encoder) {
         this.service = service;
         this.repository = repository1;
@@ -48,7 +47,7 @@ public class AdminController {
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        List<Role> roles = user.getRoles();
+        Set<Role> roles = user.getRoles();
         user.setRoles(roles);
         service.saveUser(user);
         return "redirect:/admin/all";
@@ -64,7 +63,7 @@ public class AdminController {
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") int id) {
         user.setPassword(encoder.encode(user.getPassword()));
-        List<Role> roles = user.getRoles();
+        Set<Role> roles = user.getRoles();
         user.setRoles(roles);
         service.updateUser(id,user);
         return "redirect:/admin/all";

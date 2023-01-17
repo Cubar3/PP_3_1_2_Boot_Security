@@ -15,12 +15,10 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
 
-    @Autowired
     public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
@@ -49,16 +47,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void saveUser(User user) {
         repository.save(user);
     }
 
     @Override
+    @Transactional
     public void updateUser(int id, User updatedUser) {
         repository.save(updatedUser);
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
         repository.deleteById(id);
     }
